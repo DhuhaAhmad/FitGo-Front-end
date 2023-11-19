@@ -1,0 +1,42 @@
+
+.container-fluid{
+    width: 100dvw;
+    height: 100dvh;
+
+.col-8{
+    border: solid #c48e4d;
+}
+    .col-4{
+        border: solid #4dc457;
+
+        .day{
+
+            width: 100%;
+            color: #4dc457;
+            border: solid;
+        }
+    }
+
+.sets-container {
+    display: flex;
+    justify-content: space-evenly;
+    border: solid;
+  .sets {
+ 
+    p {
+      list-style: none;
+      background-color: #c48e4d;
+      margin: 20px;
+      border-radius: 20%;
+      padding: 20px;
+    }
+
+    .complete {
+      background-color: cadetblue;
+    }
+  }
+}
+img {
+  width: 20%;
+}
+}

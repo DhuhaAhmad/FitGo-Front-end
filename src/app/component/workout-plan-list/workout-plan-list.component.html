@@ -1,0 +1,152 @@
+<p>workout-plan-list works!</p>
+<div *ngFor="let workoutPlan of workoutPlans" >
+    <p (click)="getWorkout(workoutPlan)">{{workoutPlan.name}}</p>
+    <button (click)="handleDeleteWorkout(workoutPlan.name)">delete</button>
+    <button (click)="assignUserToWorkout(workoutPlan.name)">get</button>
+</div>
+<button (click)="toggleAddMode()">Add new</button>
+<hr />
+<button (click)="handleUpdateWorkout()">update</button>
+
+
+<div class="addForm" *ngIf="addMode">
+  <img
+    width="25"
+    height="25"
+    class="close-modal"
+    src="https://img.icons8.com/fluency-systems-filled/48/multiply.png"
+    alt="multiply"
+    (click)="toggleAddMode()"
+  />
+  <h1>Add new workout paln</h1>
+  <form (ngSubmit)="handleAddWorkout()" [formGroup]="workoutForm">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="exampleFormControlInput1"
+        formControlName="workoutPlan"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label"
+        >Duration</label
+      >
+      <input
+        type="number"
+        class="form-control"
+        id="exampleFormControlInput1"
+        formControlName="duration"
+      />
+    </div>
+    <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label"
+      >Select exercises</label
+    >
+    <div class="exercise-bar-container">
+      <div *ngFor="let exercise of exercises"
+       >
+      <div class="exercise-bar" *ngIf="!isExerciseInWexercies(exercise.name)">
+        <p >{{ exercise.name }}</p>
+        <button (click)="addToWExercie(exercise.name)">Add</button>
+      </div>
+        
+      </div>
+    </div>
+</div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label"
+        >Added exercises</label
+      > 
+    
+        <span>Sets</span>   <span>reps</span>
+      
+        
+      <div class="mb-3 exercise-bar-container" *ngIf="exercises.length > 0">
+        <div *ngFor="let exercise of wexercies" class="exercise-bar">
+          <p >{{ exercise.exerciseName }}</p>
+          <input type="number" name="" id="" (change)="handleChange($event,exercise.exerciseName,'reps')">
+          <input type="number" name="" id=""(change)="handleChange($event,exercise.exerciseName,'sets')">
+          <button (click)="removeExercise(exercise.exerciseName)">remove</button>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="workoutForm.invalid" color="accent">
+      Submit
+    </button>
+  </form>
+</div>
+
+
+<div class="addForm" *ngIf="editMode">
+  <img
+    width="25"
+    height="25"
+    class="close-modal"
+    src="https://img.icons8.com/fluency-systems-filled/48/multiply.png"
+    alt="multiply"
+    (click)="toggleEditMode()"
+  />
+  <h1>Edit workout paln</h1>
+  <form (ngSubmit)="handleUpdateWorkout()" [formGroup]="workoutForm">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="exampleFormControlInput1"
+        formControlName="workoutPlan"
+        
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label"
+        >Duration</label
+      >
+      <input
+        type="number"
+        class="form-control"
+        id="exampleFormControlInput1"
+        formControlName="duration"
+      />
+    </div>
+    <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label"
+      >Select exercises</label
+    >
+    <div class="exercise-bar-container">
+      <div *ngFor="let exercise of exercises"
+       >
+      <div class="exercise-bar" *ngIf="!isExerciseInWexercies(exercise.name)">
+        <p >{{ exercise.name }}</p>
+        <button (click)="addToWExercie(exercise.name)">Add</button>
+      </div>
+        
+      </div>
+    </div>
+</div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label"
+        >Added exercises</label
+      > 
+    
+        <span>Sets</span>   <span>reps</span>
+      
+        
+      <div class="mb-3 exercise-bar-container" *ngIf="exercises.length > 0">
+        <div *ngFor="let exercise of wexercies" class="exercise-bar">
+          <p >{{ exercise.exerciseName }},{{ exercise.repetitions }}</p>
+          <input type="number" name="" id="" (change)="handleChange($event,exercise.exerciseName,'reps')" [value]="exercise.repetitions" />
+          <input type="number" name="" id=""(change)="handleChange($event,exercise.exerciseName,'sets')" [value]="exercise.sets">
+          <button (click)="removeExercise(exercise.exerciseName)">remove</button>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="workoutForm.invalid" color="accent">
+      Submit
+    </button>
+  </form>
+</div>

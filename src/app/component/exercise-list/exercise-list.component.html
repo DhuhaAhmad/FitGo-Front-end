@@ -1,0 +1,104 @@
+<p>exercise-list works!</p>
+<button (click)="toggleEditMode()">Add new</button>
+
+<div *ngFor="let exercise of exercises">
+  <p>{{ exercise.name }}</p>
+</div>
+
+<div class="addForm" *ngIf="addMode">
+    <img width="25" height="25" 
+    class="close-modal"
+    src="https://img.icons8.com/fluency-systems-filled/48/multiply.png" 
+    alt="multiply"
+    (click)="toggleEditMode()"
+    />
+  <h1>Add new Exercise</h1>
+  <form (ngSubmit)="handleAddExercise()" [formGroup]="exerciseForm">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="exampleFormControlInput1"
+        formControlName="exerciseName"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label"
+        >Description</label
+      >
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+        formControlName="description"
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label"
+        >Category</label
+      >
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        formControlName="category"
+      >
+        <option value="Strength">Strength</option>
+        <option value="Flexibility">Flexibility</option>
+        <option value="BodyBuilding">BodyBuilding</option>
+        <option value="Cardio">Cardio</option>
+        <option value="Bodyweight">Bodyweight</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label"
+        >Musele group</label
+      >
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        formControlName="muscleGroup"
+      >
+        <optgroup label="Upper Body Muscles">
+          <option value="Chest">Chest</option>
+          <option value="Back">Back</option>
+          <option value="Shoulders">Shoulders</option>
+          <option value="Biceps">Biceps</option>
+          <option value="Triceps">Triceps</option>
+        </optgroup>
+
+        <optgroup label="Lower Body Muscles">
+          <option value="Quadriceps">Quadriceps</option>
+          <option value="Hamstrings">Hamstrings</option>
+          <option value="Calves">Calves</option>
+          <option value="Glutes">Glutes</option>
+        </optgroup>
+
+        <optgroup label="Core Muscles">
+          <option value="Abdominals">Abdominals</option>
+          <option value="Obliques">Obliques</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Image</label>
+      <input
+      class="form-control"
+      aria-label="Default select example"
+        formControlName="image"
+      />
+      <div *ngIf="imageInput.value !== ''">
+        <h3>Image preview</h3>
+        <img [src]="imageInput.value" alt="" />
+      </div>
+    </div>
+    <button
+      type="submit"
+      [disabled]="exerciseForm.invalid"
+      color="accent"
+    >
+      Submit
+    </button>
+  </form>
+</div>
