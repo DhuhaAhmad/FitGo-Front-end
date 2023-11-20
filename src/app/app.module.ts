@@ -13,6 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { WorkoutPlanListComponent } from './component/workout-plan-list/workout-plan-list.component';
 import { PlayWorkoutComponent } from './component/play-workout/play-workout.component';
 import { TimerComponent } from './component/timer/timer.component';
+import { FooterComponent } from './component/footer/footer.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { TimerComponent } from './component/timer/timer.component';
     WorkoutPlanListComponent,
     PlayWorkoutComponent,
     TimerComponent,
+    FooterComponent,
     
   ],
   imports: [
@@ -33,6 +36,8 @@ import { TimerComponent } from './component/timer/timer.component';
     HttpClientModule,
     FormsModule, 
     ReactiveFormsModule,
+    NgxPaginationModule
+
 
 
   ],

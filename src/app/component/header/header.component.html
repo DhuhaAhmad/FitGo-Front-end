@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#"><img width="50" height="50" src="https://img.icons8.com/external-smashingstocks-hand-drawn-black-smashing-stocks/99/external-dumbell-sports-and-awards-smashingstocks-hand-drawn-black-smashing-stocks.png" alt="external-dumbell-sports-and-awards-smashingstocks-hand-drawn-black-smashing-stocks"/></a>
+      <a class="navbar-brand" href="#">
+        <!-- <img width="50" height="50" src="https://img.icons8.com/external-smashingstocks-hand-drawn-black-smashing-stocks/99/external-dumbell-sports-and-awards-smashingstocks-hand-drawn-black-smashing-stocks.png" alt="external-dumbell-sports-and-awards-smashingstocks-hand-drawn-black-smashing-stocks"/> -->
+      <img width="50" height="50" src="../../../assets/logo.svg" alt="">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -41,16 +44,6 @@
             *ngIf="username == null"
           >Login</button>
 
-          <!-- <div class="nav-item dropdown user" *ngIf="username != null">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              
-          
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" (click)="stratWorkingOut()" [routerLink]="['/play-workout']">Start Working out</a></li>
-              <li><a class="dropdown-item"  (click)="logout()">Logout</a></li>
-            </ul>
-          </div> -->
           <!-- Example split danger button -->
 <div class="btn-group" *ngIf="username != null">
   <button class="username-btn" disabled><h5 class="username"> {{username}}</h5></button>
@@ -59,7 +52,7 @@
   </button>
   <ul class="dropdown-menu">
     <li><a class="dropdown-item" (click)="stratWorkingOut()" [routerLink]="['/play-workout']">Start Working out</a></li>
-    <li><a class="dropdown-item"  (click)="logout()">Logout</a></li>
+    <li><a class="dropdown-item"  (click)="logout()"> <img width="20" height="20" src="https://img.icons8.com/ios/50/exit--v1.png" alt="exit--v1"/> Logout</a></li>
   </ul>
 </div>
         </form>

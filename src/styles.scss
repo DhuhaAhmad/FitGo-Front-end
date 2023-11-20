@@ -60,6 +60,27 @@
     z-index: 999; 
   }
 
+.page{
+  position: relative;
+
+}
+
+  .pagination-container {
+    display: grid;
+    place-items: center;
+    position: absolute;
+     top: 100vh;
+     left: 50%;
+     transform: translateX(-50%);
+  
+  
+  
+    .pagination{
+      margin: 40px 0 20px; 
+      color: #6C3428;
+    }
+  }
+
 
   /* Define the scrollbar track */
 ::-webkit-scrollbar {

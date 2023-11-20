@@ -47,8 +47,9 @@ nav {
       .dropdown-menu {
         margin: 0 -25%;
 
-        &:nth-child(1){
-          color: #2baa2b;
+        li {
+          cursor: pointer;
+         
         }
         
       }

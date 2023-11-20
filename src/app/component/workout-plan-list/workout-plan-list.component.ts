@@ -35,6 +35,10 @@ newWorkout: Workout ={
   exercises: [],
 };
 
+// For pagination
+p: number = 1; // Current page
+itemsPerPage: number = 6; // Items per page
+
   constructor(
     private workoutPlanService: WorkoutPlanService,
     private exerciseService: ExerciseService,
@@ -240,5 +244,8 @@ newWorkout: Workout ={
       error: (error) => console.log(error),
     });
   }
+
+  onPageChange(pageNumber: number): void { this.p = pageNumber; }
+
   
 }

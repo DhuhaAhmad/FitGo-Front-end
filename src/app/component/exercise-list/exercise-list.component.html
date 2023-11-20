@@ -5,8 +5,10 @@
 
 <div class="page">
 
+<div class="exercises">
 
-<div class="card-container"*ngFor="let exercise of exercises">
+
+<div class="card-container"*ngFor="let exercise of exercises | paginate: { itemsPerPage: itemsPerPage, currentPage: p}">
   <div class="card" (click)="getSelectedExercise(exercise)">
   <div class="img-content">
     <!-- <img src={{exercise.image}} alt=""> -->
@@ -23,9 +25,13 @@
   </div>
 </div>
 </div>
-
 </div>
-  
+
+<div class="pagination-container">
+  <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+</div>
+</div>
+
 
 
 <div class="addForm" *ngIf="addMode">

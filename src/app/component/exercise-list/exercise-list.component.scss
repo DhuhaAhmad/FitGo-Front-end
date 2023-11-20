@@ -24,13 +24,21 @@
 }
 .page{
 
+  position: relative;
+  height: 100vh;
+
+  .exercises{
   width: 70%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 30px;
    margin: auto;
-   position: relative;
+   position: absolute;
+   top: 0;
+   left: 50%;
+   transform: translateX(-50%);
+  //  position: relative;
 
   .card-container {
     width: 150px;
@@ -124,8 +132,15 @@
   .add-btn{
       margin-right: 0;
   }
-  
 }
+
+
+
+}
+
+
+
+
 .addForm {
   position: fixed;
   top: 70%;

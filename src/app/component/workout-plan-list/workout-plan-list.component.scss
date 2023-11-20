@@ -23,15 +23,23 @@
   }
 }
 .page{
+  position: relative;
+  border: solid;
+  height: 100vh;
+
+
+  .workout-plans{
 
     width: 70%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 80px;
-     margin: 70px auto;
-     position: relative;
-    //  border: solid;
+     margin: auto;
+     position: absolute;
+     top: 0;
+     left: 50%;
+     transform: translateX(-50%);
 
      .card {
       overflow: hidden;
@@ -42,6 +50,7 @@
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
       background-color: #fff;
       margin-top: 30px;
+
     
       .header {
         padding: 1.25rem 1rem 1rem 1rem;
@@ -71,26 +80,6 @@
         }
       }
     
-      // .image {
-      //   display: flex;
-      //   margin-left: auto;
-      //   margin-right: auto;
-      //   background-color: #e2feee;
-      //   flex-shrink: 0;
-      //   justify-content: center;
-      //   align-items: center;
-      //   width: 3rem;
-      //   height: 3rem;
-      //   border-radius: 9999px;
-      //   animation: animate .6s linear alternate-reverse infinite;
-      //   transition: .6s ease;
-    
-      //   svg {
-      //     color: #0afa2a;
-      //     width: 2rem;
-      //     height: 2rem;
-      //   }
-      // }
     
       .content {
         margin-top: 0.75rem;
@@ -238,6 +227,23 @@
     .add-btn{
         margin-right: 0;
     }
+  }
+
+  .pagination-container {
+    display: grid;
+    place-items: center;
+    position: absolute;
+     top: 100dvh;
+     left: 50%;
+     transform: translateX(-50%);
+  
+  
+  
+    .pagination{
+      margin: 40px 0 20px; 
+      // color: #6C3428;
+    }
+  }
     
   }
 

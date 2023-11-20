@@ -39,14 +39,17 @@ scheduledWorkouts: Record<string, Exercise[]> = {};
 
     this.username = localStorage.getItem("username")
     console.log(this.username)
+   this.getUserWorkout()
   }
 
 
   getUserWorkout():void{
-    this.userService.fetchWorkoutofUser("james").subscribe({
+    this.userService.fetchWorkoutofUser(this.username).subscribe({
       next: (res) => {
         console.log(res);
         this.workoutData=res
+        // this.getUserWorkout()
+
       },
       error: (error) => console.log(error),
     });
@@ -54,7 +57,6 @@ scheduledWorkouts: Record<string, Exercise[]> = {};
 
 
   stratWorkingOut():void{
-    this.getUserWorkout()
       // Group exercises by muscleGroup
   const groupedExercises: Record<string, Exercise[]> = {};
  this.workoutData.exerciseDTOS.forEach((exercise: Exercise) => {

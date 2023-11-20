@@ -12,7 +12,10 @@
 </button>
 
 <div class="page">
-  <div class="card" *ngFor="let workoutPlan of workoutPlans">
+  <div class="workout-plans">
+
+
+  <div class="card" *ngFor="let workoutPlan of workoutPlans | paginate: { itemsPerPage: itemsPerPage, currentPage: p}">
     <button class="edit" type="button" (click)="getWorkout(workoutPlan)">
       <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/100/create-new--v1.png" alt="create-new--v1"/>
     </button>
@@ -38,8 +41,15 @@
     </div>
   </div>
 </div>
+  <div class="pagination-container">
+    <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+  </div>
+
+</div>
 
 
+
+<!--********************  ADD FORM ******************** -->
 
 <div class="addForm" *ngIf="addMode">
   <button class="dismiss" type="button"

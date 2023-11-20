@@ -12,6 +12,10 @@ import { ExerciseService } from 'src/app/service/exercise.service';
 })
 export class ExerciseListComponent implements OnInit{
 
+// For pagination
+p: number = 1; // Current page
+itemsPerPage: number = 20; // Items per page
+
 
 exerciseForm: FormGroup;
 exerciseNameInput: FormControl;
@@ -94,6 +98,9 @@ getSelectedExercise(exercise:any):void{
   this.previewMode =true
   this.exercise=exercise
 }
+
+onPageChange(pageNumber: number): void { this.p = pageNumber; }
+
 }
 
 
