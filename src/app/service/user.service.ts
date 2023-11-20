@@ -9,30 +9,32 @@ export class UserService {
   private readonly API_URL = 'http://localhost:8080';
   constructor(private http: HttpClient) {}
 
-  putWorkoutToUser(workoutPlan: any): Observable<any> {
-    const token =
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huIiwicm9sZXMiOlsiVFJBSU5FUiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvbG9naW4iLCJleHAiOjE3MDE5MzIzNjB9.EvdhAG4pys8qHPXu6Ozu5Vm5DSYoyws0sCIydFLPeCc';
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`, // Include your authentication token here
-    });
-
+  putWorkoutToUser(workoutPlan: string): Observable<any> {
+    const header = {
+      headers: this.getAuthHeader(),
+    };
+    
     return this.http.put<any>(
-      `${this.API_URL}/assign-user-to-plan?planName=${workoutPlan}`,
-      null // Pass null as the body since it's a query parameter
-    );
+      `${this.API_URL}/assign-user-to-plan?planName=${workoutPlan}`,null,header);
   }
 
   fetchWorkoutofUser(usename: any): Observable<any> {
-    const token =
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huIiwicm9sZXMiOlsiVFJBSU5FUiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvbG9naW4iLCJleHAiOjE3MDE5MzIzNjB9.EvdhAG4pys8qHPXu6Ozu5Vm5DSYoyws0sCIydFLPeCc';
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`, // Include your authentication token here
-    });
+    const header = {
+      headers: this.getAuthHeader(),
+    };
 
     return this.http.get<any>(
-      `${this.API_URL}/${usename}/view-plan`
-    );
+      `${this.API_URL}/${usename}/view-plan`,header);
+  }
+
+  private getAuthHeader(): HttpHeaders {
+    // Get the token from the local storage
+    const token: string | null = localStorage.getItem("authToken");
+    if (token === null) {
+      throw null;
+    }
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
   }
 }

@@ -2,7 +2,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, catchError } from "rxjs";
-import { User } from "../model/User";
+// import { User } from "../model/User";
 
 @Injectable({
   providedIn: "root",
@@ -19,24 +19,24 @@ export class AuthService {
     return token !== null;
   }
 
-  authenticate(): Observable<User> {
-    // Get the token from the local storage
-    const storedToken: string | null = localStorage.getItem("authToken");
+  // authenticate(): Observable<User> {
+  //   // Get the token from the local storage
+  //   const storedToken: string | null = localStorage.getItem("authToken");
 
-    if (storedToken === null) {
-      throw null;
-    }
+  //   if (storedToken === null) {
+  //     throw null;
+  //   }
 
-    // Create the Authorization header
-    const options = {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${storedToken}`,
-      }),
-    };
+  //   // Create the Authorization header
+  //   const options = {
+  //     headers: new HttpHeaders({
+  //       Authorization: `Bearer ${storedToken}`,
+  //     }),
+  //   };
 
-    // Get logged user information
-    return this.http.get<User>(`${this.API_URL}`, options);
-  }
+  //   // Get logged user information
+  //   return this.http.get<User>(`${this.API_URL}`, options);
+  // }
 
 
   login(username: string, password: string): Observable<any> {
@@ -55,6 +55,6 @@ export class AuthService {
   logout(): void {
     // Remove the token and the user information from local storage to log a user out
     localStorage.removeItem("authToken");
-    localStorage.removeItem("currentUser");
+    localStorage.removeItem("username")
   }
 }

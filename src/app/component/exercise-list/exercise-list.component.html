@@ -1,20 +1,44 @@
-<p>exercise-list works!</p>
-<button (click)="toggleEditMode()">Add new</button>
+<div *ngIf="previewMode || addMode" class="overlay" ></div>
 
-<div *ngFor="let exercise of exercises">
-  <p>{{ exercise.name }}</p>
+<button class="btn add-btn" (click)="toggleEditMode()">
+  <img width="100" height="100" src="https://img.icons8.com/sf-regular/100/ffffff/plus-math.png" alt="plus-math"/>  Add new</button>
+
+<div class="page">
+
+
+<div class="card-container"*ngFor="let exercise of exercises">
+  <div class="card" (click)="getSelectedExercise(exercise)">
+  <div class="img-content">
+    <!-- <img src={{exercise.image}} alt=""> -->
+    <p class="heading">{{ exercise.name }}</p>
+
+  </div>
+  <div class="content" >
+    <!-- <p class="heading">{{ exercise.name }}</p> -->
+    <p>
+     <!-- {{exercise.description}} -->
+    {{exercise.muscleGroup}}
+     {{exercise.category}}
+    </p>
+  </div>
+</div>
 </div>
 
+</div>
+  
+
+
 <div class="addForm" *ngIf="addMode">
-    <img width="25" height="25" 
-    class="close-modal"
-    src="https://img.icons8.com/fluency-systems-filled/48/multiply.png" 
-    alt="multiply"
+ 
+
+    <button class="dismiss" type="button"
+
     (click)="toggleEditMode()"
-    />
+  
+    >×</button>
   <h1>Add new Exercise</h1>
   <form (ngSubmit)="handleAddExercise()" [formGroup]="exerciseForm">
-    <div class="mb-3">
+    <div class="mb-3 input-group-custom">
       <label for="exampleFormControlInput1" class="form-label">Name</label>
       <input
         type="text"
@@ -23,7 +47,7 @@
         formControlName="exerciseName"
       />
     </div>
-    <div class="mb-3">
+    <div class="mb-3 input-group-custom">
       <label for="exampleFormControlTextarea1" class="form-label"
         >Description</label
       >
@@ -34,7 +58,7 @@
         formControlName="description"
       ></textarea>
     </div>
-    <div class="mb-3">
+    <div class="mb-3 input-group-custom">
       <label for="exampleFormControlTextarea1" class="form-label"
         >Category</label
       >
@@ -50,7 +74,7 @@
         <option value="Bodyweight">Bodyweight</option>
       </select>
     </div>
-    <div class="mb-3">
+    <div class="mb-3 input-group-custom">
       <label for="exampleFormControlTextarea1" class="form-label"
         >Musele group</label
       >
@@ -81,7 +105,7 @@
       </select>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3 input-group-custom">
       <label for="exampleFormControlTextarea1" class="form-label">Image</label>
       <input
       class="form-control"
@@ -89,16 +113,59 @@
         formControlName="image"
       />
       <div *ngIf="imageInput.value !== ''">
-        <h3>Image preview</h3>
-        <img [src]="imageInput.value" alt="" />
+        <h5>Image preview</h5>
+        <img [src]="imageInput.value" alt="" class="img-preview" />
       </div>
     </div>
     <button
       type="submit"
       [disabled]="exerciseForm.invalid"
       color="accent"
+      class="btn"
     >
       Submit
     </button>
   </form>
 </div>
+
+
+<div class="addForm" *ngIf="previewMode">
+  <button class="dismiss" type="button" (click)="togglePreviewMode()">×</button>
+  <h1>Perview Exercise</h1>
+
+
+  <div class="container text-left">
+   
+    <div class="row">
+      <div class="col-8">
+        <div class="mb-3 ">
+        <img src="{{exercise.image}}" alt="" class="img-preview">
+      
+      </div>
+    </div>
+      <div class="col-4">
+            
+    <div class="mb-3">
+      <label> <strong>Name</strong></label>
+      <p >{{exercise.name}}</p>
+    </div>
+    <div class="mb-3">
+      <label> <strong>Description:</strong></label>
+      <p >{{exercise.description}}</p>
+    </div>
+    <div class="mb-3">
+      <label> <strong>Category:</strong></label>
+      <p >{{exercise.category}}</p>
+    </div>
+    <div class="mb-3">
+      <label> <strong>Musele group:</strong></label>
+      <p>{{exercise.muscleGroup}}</p>
+    </div>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+
+

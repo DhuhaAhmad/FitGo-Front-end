@@ -37,13 +37,19 @@ export class SignInComponent {
       .subscribe({
         next: (response) => {
           console.log("Login successful");
-          console.log(response)
+          console.log(response.access_token)
  
           // Store user in local storage to keep a user logged in between page refreshes
           localStorage.removeItem("authToken");
-          localStorage.setItem("authToken", response.authToken);
-          this.router.navigate(["/"]);
- 
+          localStorage.removeItem("username")
+          localStorage.setItem("authToken", response.access_token);
+          localStorage.setItem("username",this.usernameInput.value)
+             // Use Router to navigate to the home route
+        this.router.navigate(["/"]).then(() => {
+          // Reload the page after navigating
+          window.location.reload();
+        });
+        
           // Load user data
           // this.authService.authenticate().subscribe({
           //   next: (userData: User) => {

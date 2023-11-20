@@ -22,7 +22,9 @@ imageInput: FormControl;
 
 
 exercises: Exercise[] = [];
+exercise: any;
 addMode: boolean = false;
+previewMode: boolean = false;
 
 constructor(private exerciseService: ExerciseService) {
   this.exerciseNameInput = new FormControl("", Validators.required);
@@ -63,6 +65,10 @@ toggleEditMode():void{
   this.addMode=!this.addMode
 }
 
+togglePreviewMode():void{
+this.previewMode=!this.previewMode
+}
+
 handleAddExercise():void{
   const newExercise ={
     name:this.exerciseNameInput,
@@ -84,6 +90,10 @@ handleAddExercise():void{
 }
 
 
+getSelectedExercise(exercise:any):void{
+  this.previewMode =true
+  this.exercise=exercise
+}
 }
 
 

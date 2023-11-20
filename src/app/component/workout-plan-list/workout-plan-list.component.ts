@@ -1,7 +1,7 @@
 import { Component, OnInit,OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Exercise } from 'src/app/model/Exercise';
-import { WExercise, Workout } from 'src/app/model/WorkoutPlan';
+import { WorkoutPlanExercise, Workout } from 'src/app/model/WorkoutPlan';
 import { ExerciseService } from 'src/app/service/exercise.service';
 import { UserService } from 'src/app/service/user.service';
 import { WorkoutPlanService } from 'src/app/service/workout-plan.service';
@@ -28,7 +28,7 @@ export class WorkoutPlanListComponent implements OnInit {
 
 
   // to create
-  wexercies: WExercise[] = [];
+  workoutPlanExercise: WorkoutPlanExercise[] = [];
 newWorkout: Workout ={
   name: '', // Initialize with an empty string or provide a default value
   duration: 0,
@@ -82,7 +82,7 @@ newWorkout: Workout ={
     // console.log('toggle');
 // fetch all exercies when adding new workout plan
     this.getExercises();
-    this.wexercies=[]
+    this.workoutPlanExercise=[]
     this.workoutForm.reset({})
 
   }
@@ -91,17 +91,17 @@ newWorkout: Workout ={
     // this.newWorkout = w
     this.editMode = !this.editMode;
     // console.log(this.newWorkout===w)
-    this.wexercies=[]
+    this.workoutPlanExercise=[]
     this.workoutForm.reset({})
 
 
 
   }
   handleAddWorkout(): void {
-    console.log(this.wexercies)
+    console.log(this.workoutPlanExercise)
     this.newWorkout!.name = this.workoutPlanInput.value
     this.newWorkout!.duration = this.durationInput.value
-    this.newWorkout!.exercises = this.wexercies
+    this.newWorkout!.exercises = this.workoutPlanExercise
 
     console.log(this.newWorkout)
     this.workoutPlanService.PostWorkoutPlan(this.newWorkout).subscribe({
@@ -111,7 +111,7 @@ newWorkout: Workout ={
       error: (error) => console.log(error),
     });
     this.addMode=false
-    this.wexercies=[]
+    this.workoutPlanExercise=[]
     this.workoutForm.reset({})
     this.getWorkoutPlans()
 
@@ -156,37 +156,37 @@ newWorkout: Workout ={
       repetitions: 0,
       sets: 0,
     };
-    this.wexercies.push(exerciseObj);
+    this.workoutPlanExercise.push(exerciseObj);
   }
 
   removeExercise(exerciseNameToRemove: string): void {
-    this.wexercies = this.wexercies.filter(
+    this.workoutPlanExercise = this.workoutPlanExercise.filter(
       (item) => item.exerciseName !== exerciseNameToRemove
     );
   }
   isExerciseInWexercies(exerciseName: string): boolean {
     // console.log(
-    //   this.wexercies.some((item) => item.exerciseName === exerciseName)
+    //   this.workoutPlanExercise.some((item) => item.exerciseName === exerciseName)
     // );
-    return this.wexercies.some((item) => item.exerciseName === exerciseName);
+    return this.workoutPlanExercise.some((item) => item.exerciseName === exerciseName);
   }
 
   handleChange(event: any, exerciseToUpdate: string, whatToUpdate: string): void {
-    // Find the index of the exercise in the wexercies array
-    const index = this.wexercies.findIndex((item) => item.exerciseName === exerciseToUpdate);
+    // Find the index of the exercise in the workoutPlanExercise array
+    const index = this.workoutPlanExercise.findIndex((item) => item.exerciseName === exerciseToUpdate);
   
     if (index !== -1) {
       // Update the specified property based on whatToUpdate
       if (whatToUpdate === 'reps') {
-        this.wexercies[index].repetitions =parseInt( event.target.value);
+        this.workoutPlanExercise[index].repetitions =parseInt( event.target.value);
       } else if (whatToUpdate === 'sets') {
-        this.wexercies[index].sets =parseInt( event.target.value);
+        this.workoutPlanExercise[index].sets =parseInt( event.target.value);
       }
   
-      // Log the updated wexercies array
-      console.log('Updated wexercies:', this.wexercies);
+      // Log the updated workoutPlanExercise array
+      console.log('Updated workoutPlanExercise:', this.workoutPlanExercise);
     } else {
-      console.log('Exercise not found in wexercies array');
+      console.log('Exercise not found in workoutPlanExercise array');
     }
   }
 
@@ -197,7 +197,7 @@ newWorkout: Workout ={
     this.editMode =true
   this.workoutPlanInput.setValue(w.name)
   this.durationInput.setValue(w.duration)
-  this.wexercies = w.exercises
+  this.workoutPlanExercise = w.exercises
 
   this.getExercises()
    
@@ -206,13 +206,13 @@ newWorkout: Workout ={
   // ...
   
   handleUpdateWorkout(): void {
-    console.log(this.wexercies);
+    console.log(this.workoutPlanExercise);
   
     // Retrieve the updated values from the form
     const updatedWorkout: Workout = {
       name: this.workoutForm.value.workoutPlan,
       duration: this.workoutForm.value.duration,
-      exercises: this.wexercies
+      exercises: this.workoutPlanExercise
     }
   
     // Update the workout plan
@@ -225,15 +225,13 @@ newWorkout: Workout ={
     });
     this.editMode=false
 
-    this.wexercies=[]
+    this.workoutPlanExercise=[]
     this.workoutForm.reset({})
     this.getWorkoutPlans()
 
 
   }
   
-
-
   assignUserToWorkout(workout:string):void{
     this.userService.putWorkoutToUser(workout).subscribe({
       next: (res) => {

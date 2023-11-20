@@ -11,23 +11,41 @@ export class WorkoutPlanService {
   constructor(private http:HttpClient ) {}
 
   fetchWorkoutPlans(): Observable<any>{
-    const token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huIiwicm9sZXMiOlsiVFJBSU5FUiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvbG9naW4iLCJleHAiOjE3MDE5MzIzNjB9.EvdhAG4pys8qHPXu6Ozu5Vm5DSYoyws0sCIydFLPeCc"
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}` // Include your authentication token here
-    });
-    return this.http.get<any>(`${this.API_URL}/view-all-plans`)
+    const header = {
+      headers: this.getAuthHeader(),
+    };
+    return this.http.get<any>(`${this.API_URL}/view-all-plans`,header)
   }
 
   PostWorkoutPlan(newWorkout:any): Observable<any>{
-    return this.http.post<any>(`${this.API_URL}/create-plan`,newWorkout)
+    const header = {
+      headers: this.getAuthHeader(),
+    };
+    return this.http.post<any>(`${this.API_URL}/create-plan`,newWorkout,header)
   }
 
   putWorkout( workoutPlan: any): Observable<any> {
-    return this.http.put<any>(`${this.API_URL}/update-workout-plan`, workoutPlan);
+    const header = {
+      headers: this.getAuthHeader(),
+    };
+    return this.http.put<any>(`${this.API_URL}/update-workout-plan`, workoutPlan,header);
   }
 
   deleteWorkout(workoutName: string): Observable<any> {
-    return this.http.delete<any>(`${this.API_URL}/delete-workout-plan?name=${workoutName}`);
+    const header = {
+      headers: this.getAuthHeader(),
+    };
+    return this.http.delete<any>(`${this.API_URL}/delete-workout-plan?name=${workoutName}`,header);
+  }
+
+  private getAuthHeader(): HttpHeaders {
+    // Get the token from the local storage
+    const token: string | null = localStorage.getItem("authToken");
+    if (token === null) {
+      throw null;
+    }
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
   }
 }
