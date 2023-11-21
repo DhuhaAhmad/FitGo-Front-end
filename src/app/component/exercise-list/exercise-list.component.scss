@@ -145,9 +145,9 @@
 
 .addForm {
   position: fixed;
-  top: 70%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -70%);
+  transform: translate(-50%, -50%);
   width: 35%;
   max-height: 80vh; /* Set a maximum height for the modal (80% of the viewport height) */
   // height: max-content;

@@ -1,5 +1,6 @@
-import { Component, OnInit,OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Exercise } from 'src/app/model/Exercise';
 import { WorkoutPlanExercise, Workout } from 'src/app/model/WorkoutPlan';
 import { ExerciseService } from 'src/app/service/exercise.service';
@@ -42,7 +43,8 @@ itemsPerPage: number = 6; // Items per page
   constructor(
     private workoutPlanService: WorkoutPlanService,
     private exerciseService: ExerciseService,
-    private userService:UserService
+    private userService:UserService,
+    private toastr: ToastrService
   ) {
     this.workoutPlanInput = new FormControl('', Validators.required);
     this.durationInput = new FormControl('', [
@@ -111,6 +113,8 @@ itemsPerPage: number = 6; // Items per page
     this.workoutPlanService.PostWorkoutPlan(this.newWorkout).subscribe({
       next: (res) => {
         console.log(res);
+        this.toastr.success('Success','New workout added successfully!');
+        this.getWorkoutPlans()
       },
       error: (error) => console.log(error),
     });
@@ -134,7 +138,10 @@ itemsPerPage: number = 6; // Items per page
     this.workoutPlanService.deleteWorkout(workoutPlan).subscribe({
       next: (res) => {
         console.log(res); 
+
         this.getWorkoutPlans()
+        this.toastr.success('Success','Workout plan deleted successfully!');
+
       },
       error: (error) => console.log(error),
     });
@@ -224,6 +231,8 @@ itemsPerPage: number = 6; // Items per page
       next: (res) => {
         console.log(res);
         this.editMode = false; // Exit edit mode after successful update
+        this.toastr.info('Success','Workout plan updated successfully!');
+        this.getWorkoutPlans();
       },
       error: (error) => console.log(error),
     });
@@ -231,7 +240,7 @@ itemsPerPage: number = 6; // Items per page
 
     this.workoutPlanExercise=[]
     this.workoutForm.reset({})
-    this.getWorkoutPlans()
+    // this.getWorkoutPlans()
 
 
   }
@@ -239,7 +248,9 @@ itemsPerPage: number = 6; // Items per page
   assignUserToWorkout(workout:string):void{
     this.userService.putWorkoutToUser(workout).subscribe({
       next: (res) => {
-        console.log(res);
+        // console.log(res);
+        this.toastr.info('Workout plan selected successfully!', 'Let\'s start your fitness journey.');
+
       },
       error: (error) => console.log(error),
     });

@@ -1,5 +1,6 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Exercise } from 'src/app/model/Exercise';
 import { ExerciseService } from 'src/app/service/exercise.service';
 
@@ -30,7 +31,7 @@ exercise: any;
 addMode: boolean = false;
 previewMode: boolean = false;
 
-constructor(private exerciseService: ExerciseService) {
+constructor(private exerciseService: ExerciseService,private toastr: ToastrService) {
   this.exerciseNameInput = new FormControl("", Validators.required);
   this.descriptionInput = new FormControl("", [Validators.required, Validators.minLength(10), Validators.maxLength(255)]);
   this.categoryInput = new FormControl("", Validators.required);
@@ -89,9 +90,11 @@ handleAddExercise():void{
   this.exerciseService.postExercise(newExercise).subscribe({
     next:res=>{
       console.log(res)
+      this.toastr.success('Exercise added successfully!', 'Success');
       this.getExercises();
     },error:error=> console.log(error)
   })
+  this.exerciseForm.reset();
 
   this.addMode =false
 }

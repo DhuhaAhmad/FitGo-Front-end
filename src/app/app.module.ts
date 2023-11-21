@@ -16,6 +16,9 @@ import { TimerComponent } from './component/timer/timer.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +39,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HttpClientModule,
     FormsModule, 
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right'
+        }), // ToastrModule added
 
 
 

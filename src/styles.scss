@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+// regular style toast
+@import 'ngx-toastr/toastr';
+
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap');
 :root{
     overflow-x: hidden;
