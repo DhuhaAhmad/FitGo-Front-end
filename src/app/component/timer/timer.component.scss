@@ -1,0 +1,29 @@
+.timer{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-40%);
+    font-family: 'Roboto', sans-serif;
+   
+    h3{
+
+         line-height: 5em;
+         font-size: 3rem;
+    }
+
+    div{
+         line-height: 1.2em;
+         font-size: 30px;
+
+        strong{
+            color: #E88130;
+        }
+
+        p{
+            line-height: 2em;
+
+                font-weight: 600;
+        }
+
+    }
+}

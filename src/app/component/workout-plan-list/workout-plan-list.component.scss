@@ -24,8 +24,8 @@
 }
 .page{
   position: relative;
-  border: solid;
-  height: 100vh;
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
 
 
   .workout-plans{
@@ -262,6 +262,8 @@
   overflow-y: auto; /* Enable vertical scrolling if content exceeds the modal height */
   overflow-x: hidden;
   margin-top: 1.5rem;
+  font-family: 'Roboto', sans-serif;
+
  h1{
   text-align: center;
   margin: 20px;

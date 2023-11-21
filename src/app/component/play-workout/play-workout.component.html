@@ -1,109 +1,115 @@
-
-
-
-
 <div class="container-fluid text-center">
   <div class="row">
-
     <!-- Right side -->
-    <div class="col-8">col-8
-<div class="sets-container">
-
-     
-  <div class="sets" *ngFor="let index of getNumberArray(currentExercise.sets); let i = index">
-
-    <!--  *************************** mark a cell when set is complete by checking if currnt cell i in included in completed set array ***************************  -->
-    <p  [ngClass]="{ complete: completedSets[currentExercise.exerciseName]?.join(', ')?.includes((index + 1).toString()) ?? false }">
-      {{index + 1}}
-
-    </p>
-  </div>
-</div>
-
-<div *ngIf="isTimer">
-  <app-timer (timerOver)="handleTimerOver()"></app-timer>
-<button (click)="handleTimerOver()">Stop timer</button>
-</div>
-<div *ngIf="!isTimer && (currentExercise.exerciseName != '') ">
-
-    <div>
-    
-        <h2>{{ currentExercise.exerciseName }}</h2>
-        <p>Repetitions: {{ currentExercise.repetitions }}</p>
-        <!-- <p>Sets: {{ currentExercise.sets }}</p> -->
-        <p>Target Muscle Group: {{ currentExercise.muscleGroup }}</p>
-        <img *ngIf="currentExercise.image" [src]="currentExercise.image" alt="{{ currentExercise.exerciseName }}" />
+    <div class="col-8">
+      <div class="sets-container" *ngIf="currentExercise.exerciseName != ''">
+        <h5>sets:</h5>
+        <div
+          class="sets"
+          *ngFor="
+            let index of getNumberArray(currentExercise.sets);
+            let i = index
+          "
+        >
+          <!--  *************************** mark a cell when set is complete by checking if currnt cell i in included in completed set array ***************************  -->
+          <p
+            [ngClass]="{
+              complete:
+                completedSets[currentExercise.exerciseName]
+                  ?.join(', ')
+                  ?.includes((index + 1).toString()) ?? false
+            }"
+          >
+            <!-- {{index + 1}} -->
+          </p>
+        </div>
       </div>
-      <div>
-        <!-- <p>Set {{ currentSet }} of {{ currentExercise.sets }}</p> -->
-        <button (click)="markSetCompleted()">Mark Set Completed</button>
-        
-        <p>Completed Sets: {{ completedSets[currentExercise.exerciseName]?.join(', ') || 'None' }}</p>
-      </div>
-</div>
 
+      <div *ngIf="isTimer" class="right-side">
+        <app-timer (timerOver)="handleTimerOver()"></app-timer>
+        <button (click)="handleTimerOver()" class="btn stop">Stop timer</button>
+      </div>
+      <div
+        *ngIf="!isTimer && currentExercise.exerciseName != ''"
+        class="right-side"
+      >
+        <div class="exercise-info">
+          <h2>{{ currentExercise.exerciseName }}</h2>
+          <p>Repetitions: {{ currentExercise.repetitions }}</p>
+          <p>
+            <strong>Target Muscle:</strong> {{ currentExercise.muscleGroup }}
+          </p>
+        </div>
+        <img
+          *ngIf="currentExercise.image"
+          [src]="currentExercise.image"
+          alt="{{ currentExercise.exerciseName }}"
+        />
+
+        <div class="marked-btn-container">
+          <button class="btn" (click)="markSetCompleted()">
+            Mark Set Completed
+          </button>
+        </div>
+      </div>
     </div>
 
-    <!-- Left side -->
-    <!-- <div class="col-4">col-4 -->
-<!-- 
-<button
-  class="btn btn-primary"
-  type="button"
-  data-bs-toggle="offcanvas"
-  data-bs-target="#offcanvasRight"
-  aria-controls="offcanvasRight"
->
-  Toggle right offcanvas
-</button> -->
-
-<div
-  class="col-4 offcanvas offcanvas-end show"
-  tabindex="-1"
-  id="offcanvasRight"
-  aria-labelledby="offcanvasRightLabel"
-  data-bs-scroll="true"
-  data-bs-backdrop="false" 
->
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
-    <!-- <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="offcanvas"
-      aria-label="Close"
-    ></button> -->
-  </div>
-  <div class="offcanvas-body">
-    <div *ngFor="let day of neededArray; let i = index">
-      <div
-      (click)="updateCurrentDay(day)" 
-        class="day"
-        type="button"
-        data-bs-toggle="collapse"
-        [attr.data-bs-target]="'#collapseExample' + i"
-        aria-expanded="false"
-        [attr.aria-controls]="'collapseExample' + i"
-      >
-        {{ day.name }}
+    <div
+      class="col-4 offcanvas offcanvas-end show"
+      tabindex="-1"
+      id="offcanvasRight"
+      aria-labelledby="offcanvasRightLabel"
+      data-bs-scroll="true"
+      data-bs-backdrop="false"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">
+          Offcanvas right
+        </h5>
       </div>
-      <div *ngFor="let exercise of day.exercises; let j = index">
-        <div class="collapse" [attr.id]="'collapseExample' + i" (click)="selectedExercise(exercise)">
-          <div class="card card-body">
-            <p>{{ exercise.exerciseName }}</p>
+      <div class="offcanvas-body">
+        <div *ngFor="let day of neededArray; let i = index">
+          <div
+            (click)="updateCurrentDay(day, i)"
+            class="day"
+            type="button"
+            data-bs-toggle="collapse"
+            [attr.data-bs-target]="'#collapseExample' + i"
+            aria-expanded="false"
+            [attr.aria-controls]="'collapseExample' + i"
+          >
+            <h5>{{ day.name }}</h5>
+            <img
+              width="20"
+              height="20"
+              [src]="
+                expandedDays[i]
+                  ? 'https://img.icons8.com/ios-filled/50/collapse-arrow--v1.png'
+                  : 'https://img.icons8.com/ios-filled/50/expand-arrow--v1.png'
+              "
+              alt="expand-arrow--v1"
+            />
+          </div>
+          <div *ngFor="let exercise of day.exercises; let j = index">
+            <div
+              class="collapse exercise-list"
+              [attr.id]="'collapseExample' + i"
+              (click)="selectedExercise(exercise)"
+            >
+              <ul>
+                <li
+                  [ngClass]="{
+                    current:
+                      currentExercise.exerciseName == exercise.exerciseName
+                  }"
+                >
+                  {{ exercise.exerciseName }}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </div>
-
-    <!-- </div> -->
-  </div>
-
-
-</div>
-
-
-

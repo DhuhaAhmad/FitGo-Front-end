@@ -18,9 +18,33 @@ interface Exercise {
 })
 export class PlayWorkoutComponent implements OnInit {
   scheduledWorkouts: any;
+//   {
+//     // "username": "john",
+//     "plan": "Core Strengthening",
+//     "exerciseDTOS": [
+//         {
+//             "exerciseName": "Plank",
+//             "repetitions": null,
+//             "sets": 5,
+//             "muscleGroup": "Abdominals",
+//             "image": null
+//         },
+//         {
+//             "exerciseName": "Deadlift",
+//             "repetitions": null,
+//             "sets": 8,
+//             "muscleGroup": "Hamstrings",
+//             "image": "https://www.inspireusafoundation.org/wp-content/uploads/2022/06/barbell-romanian-deadlift-movement.gif"
+//         }
+//     ]
+// };
+
+
 
 
   neededArray: any[] = [];
+  // replace 2 with neededArray.length 
+expandedDays: boolean[] = [];
 
   currentExercise: Exercise = {
     exerciseName: '',
@@ -43,14 +67,12 @@ export class PlayWorkoutComponent implements OnInit {
     this.sharedService.scheduledWorkouts$.subscribe((data) => {
       // Use the received data
       this.scheduledWorkouts = data;
-
-      console.log(this.scheduledWorkouts);
     });
 
     this.convertToNeededArray();
   }
 
-  convertToNeededArray(): void {
+   convertToNeededArray(): void {
     if (this.scheduledWorkouts != null) {
       const scheduledWorkoutsProperties = Object.keys(this.scheduledWorkouts);
       console.log(scheduledWorkoutsProperties);
@@ -61,7 +83,9 @@ export class PlayWorkoutComponent implements OnInit {
         });
       }
 
-      console.log(this.neededArray);
+      this.expandedDays=Array(this.neededArray.length).fill(false)
+      console.log(this.neededArray,this.expandedDays);
+
     }
   }
 
@@ -80,20 +104,51 @@ export class PlayWorkoutComponent implements OnInit {
   }
 
   // New function
-  markSetCompleted(): void {
-    if (!this.completedSets[this.currentExercise.exerciseName]) {
-      this.completedSets[this.currentExercise.exerciseName] = [];
-    }
+  // markSetCompleted(): void {
+  //   if (!this.completedSets[this.currentExercise.exerciseName]) {
+  //     this.completedSets[this.currentExercise.exerciseName] = [];
+  //   }
 
-    this.completedSets[this.currentExercise.exerciseName].push(this.currentSet);
+  //   this.completedSets[this.currentExercise.exerciseName].push(this.currentSet);
 
-    if (this.currentSet < this.currentExercise.sets) {
-      this.currentSet++;
-    } else {
-      this.moveToNextExercise();
-    }
-    this.isTimer=true
+  //   if (this.currentSet < this.currentExercise.sets) {
+  //     this.currentSet++;
+  //   } else {
+  //     this.moveToNextExercise();
+  //   }
+  //   this.isTimer=true
+  // }
+  // New function
+markSetCompleted(): void {
+  if (!this.completedSets[this.currentExercise.exerciseName]) {
+    this.completedSets[this.currentExercise.exerciseName] = [];
   }
+
+  this.completedSets[this.currentExercise.exerciseName].push(this.currentSet);
+
+  if (this.currentSet < this.currentExercise.sets) {
+    // Set is not complete yet
+    this.currentSet++;
+  } else {
+    // Set is complete, move to the next exercise or perform additional actions
+    this.moveToNextExercise();
+  }
+
+  // Check if the set is complete
+  const isSetComplete = this.currentSet === this.currentExercise.sets;
+
+  // Perform actions based on whether the set is complete or not
+  if (isSetComplete) {
+    // Set is complete, do something
+    console.log('Set is complete!');
+  } else {
+    // Set is not complete, do something else
+    console.log('Set is not complete yet.');
+  }
+
+  this.isTimer = true;
+}
+
 
   // New function
   moveToNextExercise(): void {
@@ -140,9 +195,11 @@ export class PlayWorkoutComponent implements OnInit {
     return currentIndex;
   }
 
-  updateCurrentDay(day: any): void {
+  updateCurrentDay(day: any,index: number): void {
+   
     this.currentDay = day;
-    console.log(day);
+    this.expandedDays[index] = !this.expandedDays[index];
+    console.log(day,this.expandedDays[index]);
   }
 
 //to create number of element(sets) in html and loop through
