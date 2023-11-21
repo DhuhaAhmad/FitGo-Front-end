@@ -16,7 +16,7 @@ export class TimerComponent implements OnInit{
 
   ngOnInit(): void {
     // Set the initial time (in milliseconds)
-    this.remainingTime = 6000; // 1 minute
+    this.remainingTime = 60000; // 1 minute
 
     // Start the timer
     this.startTimer();

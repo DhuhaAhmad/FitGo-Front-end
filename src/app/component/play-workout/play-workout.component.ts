@@ -18,6 +18,8 @@ interface Exercise {
 })
 export class PlayWorkoutComponent implements OnInit {
   scheduledWorkouts: any;
+
+  workoutPlanName :string | null = ""
 //   {
 //     // "username": "john",
 //     "plan": "Core Strengthening",
@@ -67,6 +69,8 @@ expandedDays: boolean[] = [];
     this.sharedService.scheduledWorkouts$.subscribe((data) => {
       // Use the received data
       this.scheduledWorkouts = data;
+      console.log(this.scheduledWorkouts.name)
+      this.workoutPlanName = localStorage.getItem("workoutplan")
     });
 
     this.convertToNeededArray();

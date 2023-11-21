@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './component/header/header.component';
 import { HomeComponent } from './component/home/home.component';
 import { SignInComponent } from './component/sign-in/sign-in.component';
-import { ExerciseComponent } from './component/exercise/exercise.component';
 import { ExerciseListComponent } from './component/exercise-list/exercise-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { WorkoutPlanListComponent } from './component/workout-plan-list/workout-plan-list.component';
@@ -25,7 +24,6 @@ import { ToastrModule } from 'ngx-toastr';
     HeaderComponent,
     HomeComponent,
     SignInComponent,
-    ExerciseComponent,
     ExerciseListComponent,
     WorkoutPlanListComponent,
     PlayWorkoutComponent,

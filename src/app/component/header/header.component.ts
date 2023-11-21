@@ -48,6 +48,8 @@ scheduledWorkouts: Record<string, Exercise[]> = {};
       next: (res) => {
         console.log(res);
         this.workoutData=res
+        // console.log(this.workoutData.plan)
+        localStorage.setItem("workoutplan",this.workoutData.plan)
         // this.getUserWorkout()
 
       },

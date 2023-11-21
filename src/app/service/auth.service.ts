@@ -19,25 +19,6 @@ export class AuthService {
     return token !== null;
   }
 
-  // authenticate(): Observable<User> {
-  //   // Get the token from the local storage
-  //   const storedToken: string | null = localStorage.getItem("authToken");
-
-  //   if (storedToken === null) {
-  //     throw null;
-  //   }
-
-  //   // Create the Authorization header
-  //   const options = {
-  //     headers: new HttpHeaders({
-  //       Authorization: `Bearer ${storedToken}`,
-  //     }),
-  //   };
-
-  //   // Get logged user information
-  //   return this.http.get<User>(`${this.API_URL}`, options);
-  // }
-
 
   login(username: string, password: string): Observable<any> {
     console.log(username,password)
@@ -56,5 +37,6 @@ export class AuthService {
     // Remove the token and the user information from local storage to log a user out
     localStorage.removeItem("authToken");
     localStorage.removeItem("username")
+    localStorage.removeItem("workoutplan")
   }
 }

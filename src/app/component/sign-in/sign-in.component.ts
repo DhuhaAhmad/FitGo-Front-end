@@ -42,6 +42,7 @@ export class SignInComponent {
           // Store user in local storage to keep a user logged in between page refreshes
           localStorage.removeItem("authToken");
           localStorage.removeItem("username")
+          localStorage.removeItem("workoutplan")
           localStorage.setItem("authToken", response.access_token);
           localStorage.setItem("username",this.usernameInput.value)
              // Use Router to navigate to the home route
