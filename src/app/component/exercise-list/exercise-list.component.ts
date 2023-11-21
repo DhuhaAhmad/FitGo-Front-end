@@ -44,10 +44,13 @@ constructor(private exerciseService: ExerciseService) {
     muscleGroup: this.muscleGroupInput,
     image: this.imageInput,
   });
+
+  
 }
 
 ngOnInit(): void {
     
+
   this.getExercises()
 }
 
@@ -74,13 +77,13 @@ this.previewMode=!this.previewMode
 }
 
 handleAddExercise():void{
-  const newExercise ={
-    name:this.exerciseNameInput,
-    description: this.descriptionInput,
-    category: this.categoryInput,
-      muscleGroup:this.muscleGroupInput,
-     image: this.imageInput
-  }
+ const newExercise = {
+    name: this.exerciseNameInput.value,
+    description: this.descriptionInput.value,
+    category: this.categoryInput.value,
+    muscleGroup: this.muscleGroupInput.value,
+    image: this.imageInput.value
+  };
 
   console.log(newExercise)
   this.exerciseService.postExercise(newExercise).subscribe({

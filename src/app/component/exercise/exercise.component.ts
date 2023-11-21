@@ -7,27 +7,8 @@ import { ExerciseService } from 'src/app/service/exercise.service';
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.scss']
 })
-export class ExerciseComponent implements OnInit {
+export class ExerciseComponent {
 
-  exercises:Exercise[] = []
 
-  constructor(private exerciseService: ExerciseService) {}
-  ngOnInit(): void {
-    
-    this.getExercises()
-  }
-  
-  getExercises():void{
-    this.exerciseService.fetchExercises().subscribe({
-      next:res=>{
-        this.exercises=res
-        console.log(this.exercises)
-      }  ,
-      error: error => { // Error response
-        console.log(error);
-      }
-
-    })
-  }
     
 }
