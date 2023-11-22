@@ -16,8 +16,6 @@ export class WorkoutPlanListComponent implements OnInit {
   workoutForm: FormGroup;
   workoutPlanInput: FormControl;
   durationInput: FormControl;
-  
-
 
   addMode: boolean = false;
   editMode: boolean = false;
@@ -27,23 +25,22 @@ export class WorkoutPlanListComponent implements OnInit {
   exercises: Exercise[] = [];
   workoutPlans: Workout[] = [];
 
-
   // to create
   workoutPlanExercise: WorkoutPlanExercise[] = [];
-newWorkout: Workout ={
-  name: '', // Initialize with an empty string or provide a default value
-  duration: 0,
-  exercises: [],
-};
+  newWorkout: Workout = {
+    name: '', // Initialize with an empty string or provide a default value
+    duration: 0,
+    exercises: [],
+  };
 
-// For pagination
-p: number = 1; // Current page
-itemsPerPage: number = 6; // Items per page
+  // For pagination
+  p: number = 1; // Current page
+  itemsPerPage: number = 6; // Items per page
 
   constructor(
     private workoutPlanService: WorkoutPlanService,
     private exerciseService: ExerciseService,
-    private userService:UserService,
+    private userService: UserService,
     private toastr: ToastrService
   ) {
     this.workoutPlanInput = new FormControl('', Validators.required);
@@ -52,25 +49,18 @@ itemsPerPage: number = 6; // Items per page
       Validators.minLength(10),
       Validators.maxLength(255),
     ]);
-    // this.exerciesInput = new FormControl('', Validators.required);
-    // this.setsInput = new FormControl('', Validators.required);
-    // this.repsInput = new FormControl('', Validators.required);
 
     this.workoutForm = new FormGroup({
       workoutPlan: this.workoutPlanInput,
       duration: this.durationInput,
-      // exercies: this.exerciesInput,
-      // sets: this.setsInput,
-      // reps: this.repsInput,
     });
   }
 
   ngOnInit(): void {
-    this.getWorkoutPlans()
+    this.getWorkoutPlans();
   }
-  
 
-  getWorkoutPlans():void{
+  getWorkoutPlans(): void {
     this.workoutPlanService.fetchWorkoutPlans().subscribe({
       next: (res) => {
         this.workoutPlans = res;
@@ -85,67 +75,49 @@ itemsPerPage: number = 6; // Items per page
 
   toggleAddMode(): void {
     this.addMode = !this.addMode;
-    // console.log('toggle');
-// fetch all exercies when adding new workout plan
+    // fetch all exercies when adding new workout plan
     this.getExercises();
-    this.workoutPlanExercise=[]
-    this.workoutForm.reset({})
-
+    this.workoutPlanExercise = [];
+    this.workoutForm.reset({});
   }
 
   toggleEditMode(): void {
-    // this.newWorkout = w
     this.editMode = !this.editMode;
-    // console.log(this.newWorkout===w)
-    this.workoutPlanExercise=[]
-    this.workoutForm.reset({})
 
-
-
+    this.workoutPlanExercise = [];
+    this.workoutForm.reset({});
   }
   handleAddWorkout(): void {
-    console.log(this.workoutPlanExercise)
-    this.newWorkout!.name = this.workoutPlanInput.value
-    this.newWorkout!.duration = this.durationInput.value
-    this.newWorkout!.exercises = this.workoutPlanExercise
+    console.log(this.workoutPlanExercise);
+    this.newWorkout!.name = this.workoutPlanInput.value;
+    this.newWorkout!.duration = this.durationInput.value;
+    this.newWorkout!.exercises = this.workoutPlanExercise;
 
-    console.log(this.newWorkout)
+    console.log(this.newWorkout);
     this.workoutPlanService.PostWorkoutPlan(this.newWorkout).subscribe({
       next: (res) => {
         console.log(res);
-        this.toastr.success('Success','New workout added successfully!');
-        this.getWorkoutPlans()
+        this.toastr.success('Success', 'New workout added successfully!');
+        this.getWorkoutPlans();
       },
       error: (error) => console.log(error),
     });
-    this.addMode=false
-    this.workoutPlanExercise=[]
-    this.workoutForm.reset({})
-    this.getWorkoutPlans()
-
-
+    this.addMode = false;
+    this.workoutPlanExercise = [];
+    this.workoutForm.reset({});
+    this.getWorkoutPlans();
   }
 
-  // handleUpdateWorkout(): void {
-  //   this.workoutPlanService.putWorkout(this.newWorkout).subscribe({
-  //     next: (res) => {
-  //       console.log(res);
-  //     },
-  //     error: (error) => console.log(error),
-  //   });
-  // }
-  handleDeleteWorkout(workoutPlan:string): void {
+  handleDeleteWorkout(workoutPlan: string): void {
     this.workoutPlanService.deleteWorkout(workoutPlan).subscribe({
       next: (res) => {
-        console.log(res); 
+        console.log(res);
 
-        this.getWorkoutPlans()
-        this.toastr.success('Success','Workout plan deleted successfully!');
-
+        this.getWorkoutPlans();
+        this.toastr.success('Success', 'Workout plan deleted successfully!');
       },
       error: (error) => console.log(error),
     });
-   
   }
 
   getExercises(): void {
@@ -176,24 +148,31 @@ itemsPerPage: number = 6; // Items per page
     );
   }
   isExerciseInWexercies(exerciseName: string): boolean {
-    // console.log(
-    //   this.workoutPlanExercise.some((item) => item.exerciseName === exerciseName)
-    // );
-    return this.workoutPlanExercise.some((item) => item.exerciseName === exerciseName);
+    return this.workoutPlanExercise.some(
+      (item) => item.exerciseName === exerciseName
+    );
   }
 
-  handleChange(event: any, exerciseToUpdate: string, whatToUpdate: string): void {
+  handleChange(
+    event: any,
+    exerciseToUpdate: string,
+    whatToUpdate: string
+  ): void {
     // Find the index of the exercise in the workoutPlanExercise array
-    const index = this.workoutPlanExercise.findIndex((item) => item.exerciseName === exerciseToUpdate);
-  
+    const index = this.workoutPlanExercise.findIndex(
+      (item) => item.exerciseName === exerciseToUpdate
+    );
+
     if (index !== -1) {
       // Update the specified property based on whatToUpdate
       if (whatToUpdate === 'reps') {
-        this.workoutPlanExercise[index].repetitions =parseInt( event.target.value);
+        this.workoutPlanExercise[index].repetitions = parseInt(
+          event.target.value
+        );
       } else if (whatToUpdate === 'sets') {
-        this.workoutPlanExercise[index].sets =parseInt( event.target.value);
+        this.workoutPlanExercise[index].sets = parseInt(event.target.value);
       }
-  
+
       // Log the updated workoutPlanExercise array
       console.log('Updated workoutPlanExercise:', this.workoutPlanExercise);
     } else {
@@ -201,62 +180,57 @@ itemsPerPage: number = 6; // Items per page
     }
   }
 
-
-
   getWorkout(w: Workout): void {
+    this.editMode = true;
+    this.workoutPlanInput.setValue(w.name);
+    this.durationInput.setValue(w.duration);
+    this.workoutPlanExercise = w.exercises;
 
-    this.editMode =true
-  this.workoutPlanInput.setValue(w.name)
-  this.durationInput.setValue(w.duration)
-  this.workoutPlanExercise = w.exercises
-
-  this.getExercises()
-   
+    this.getExercises();
   }
-  
+
   // ...
-  
+
   handleUpdateWorkout(): void {
     console.log(this.workoutPlanExercise);
-  
+
     // Retrieve the updated values from the form
     const updatedWorkout: Workout = {
       name: this.workoutForm.value.workoutPlan,
       duration: this.workoutForm.value.duration,
-      exercises: this.workoutPlanExercise
-    }
-  
+      exercises: this.workoutPlanExercise,
+    };
+
     // Update the workout plan
     this.workoutPlanService.putWorkout(updatedWorkout).subscribe({
       next: (res) => {
         console.log(res);
         this.editMode = false; // Exit edit mode after successful update
-        this.toastr.info('Success','Workout plan updated successfully!');
+        this.toastr.info('Success', 'Workout plan updated successfully!');
         this.getWorkoutPlans();
       },
       error: (error) => console.log(error),
     });
-    this.editMode=false
+    this.editMode = false;
 
-    this.workoutPlanExercise=[]
-    this.workoutForm.reset({})
-    // this.getWorkoutPlans()
-
-
+    this.workoutPlanExercise = [];
+    this.workoutForm.reset({});
   }
-  
-  assignUserToWorkout(workout:string):void{
+
+  assignUserToWorkout(workout: string): void {
     this.userService.putWorkoutToUser(workout).subscribe({
       next: (res) => {
         // console.log(res);
-        this.toastr.info('Workout plan selected successfully!', 'Let\'s start your fitness journey.');
-
+        this.toastr.info(
+          'Workout plan selected successfully!',
+          "Let's start your fitness journey."
+        );
       },
       error: (error) => console.log(error),
     });
   }
 
-  onPageChange(pageNumber: number): void { this.p = pageNumber; }
-
-  
+  onPageChange(pageNumber: number): void {
+    this.p = pageNumber;
+  }
 }

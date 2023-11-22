@@ -1,4 +1,4 @@
-<div *ngIf="addMode|| editMode" class="overlay" ></div>
+<div *ngIf="addMode || editMode" class="overlay"></div>
 
 <button class="btn" (click)="toggleAddMode()">
   <img
@@ -13,50 +13,58 @@
 
 <div class="page">
   <div class="workout-plans">
-
-
-  <div class="card" *ngFor="let workoutPlan of workoutPlans | paginate: { itemsPerPage: itemsPerPage, currentPage: p}">
-    <button class="edit" type="button" (click)="getWorkout(workoutPlan)">
-      <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/100/create-new--v1.png" alt="create-new--v1"/>
-    </button>
-    <div class="header">
-      <p class="heading" >
-        {{ workoutPlan.name }}
-      </p>
-
-    </div>
-    <div class="content">
-      <span class="title">Duration</span>
-      <p class="message">
-        {{ workoutPlan.duration }} Weeks
-      </p>
-    </div>
-    <div class="actions">
-      <button class="btn delete-btn" (click)="handleDeleteWorkout(workoutPlan.name)">
-        delete
+    <div
+      class="card"
+      *ngFor="
+        let workoutPlan of workoutPlans
+          | paginate : { itemsPerPage: itemsPerPage, currentPage: p }
+      "
+    >
+      <button class="edit" type="button" (click)="getWorkout(workoutPlan)">
+        <img
+          width="20"
+          height="20"
+          src="https://img.icons8.com/pastel-glyph/100/create-new--v1.png"
+          alt="create-new--v1"
+        />
       </button>
-      <button class="btn get-btn" (click)="assignUserToWorkout(workoutPlan.name)">
-        Get Your Plan
-      </button>
+      <div class="header">
+        <p class="heading">
+          {{ workoutPlan.name }}
+        </p>
+      </div>
+      <div class="content">
+        <span class="title">Duration</span>
+        <p class="message">{{ workoutPlan.duration }} Weeks</p>
+      </div>
+      <div class="actions">
+        <button
+          class="btn delete-btn"
+          (click)="handleDeleteWorkout(workoutPlan.name)"
+        >
+          delete
+        </button>
+        <button
+          class="btn get-btn"
+          (click)="assignUserToWorkout(workoutPlan.name)"
+        >
+          Get Your Plan
+        </button>
+      </div>
     </div>
   </div>
-</div>
   <div class="pagination-container">
-    <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+    <pagination-controls
+      class="pagination"
+      (pageChange)="p = $event"
+    ></pagination-controls>
   </div>
-
 </div>
-
-
 
 <!--********************  ADD FORM ******************** -->
 
 <div class="addForm" *ngIf="addMode">
-  <button class="dismiss" type="button"
-
-  (click)="toggleAddMode()"
-
-  >×</button>
+  <button class="dismiss" type="button" (click)="toggleAddMode()">×</button>
 
   <h1>Add new workout paln</h1>
   <form (ngSubmit)="handleAddWorkout()" [formGroup]="workoutForm">
@@ -91,11 +99,13 @@
             *ngIf="!isExerciseInWexercies(exercise.name)"
           >
             <p>{{ exercise.name }}</p>
-            <img width="20" height="20" 
-            src="https://img.icons8.com/ios/50/add--v1.png" 
-            alt="add--v1"
-            class="add"
-            (click)="addToWExercie(exercise.name)"
+            <img
+              width="20"
+              height="20"
+              src="https://img.icons8.com/ios/50/add--v1.png"
+              alt="add--v1"
+              class="add"
+              (click)="addToWExercie(exercise.name)"
             />
           </div>
         </div>
@@ -134,18 +144,25 @@
             class="number"
             (change)="handleChange($event, exercise.exerciseName, 'sets')"
           />
-         
-          <img width="20" height="20" 
-          src="https://img.icons8.com/ios/50/minus.png" 
-          alt="minus"
-          class="minus"
-          (click)="removeExercise(exercise.exerciseName)"
+
+          <img
+            width="20"
+            height="20"
+            src="https://img.icons8.com/ios/50/minus.png"
+            alt="minus"
+            class="minus"
+            (click)="removeExercise(exercise.exerciseName)"
           />
         </div>
       </div>
     </div>
 
-    <button type="submit" class="btn" [disabled]="workoutForm.invalid" color="accent">
+    <button
+      type="submit"
+      class="btn"
+      [disabled]="workoutForm.invalid"
+      color="accent"
+    >
       Submit
     </button>
   </form>
@@ -153,11 +170,7 @@
 
 <!--********************  EDIT FORM ******************** -->
 <div class="addForm" *ngIf="editMode">
-  <button class="dismiss" type="button"
-
-  (click)="toggleEditMode()"
-
-  >×</button>
+  <button class="dismiss" type="button" (click)="toggleEditMode()">×</button>
 
   <h1>Edit workout paln</h1>
   <form (ngSubmit)="handleUpdateWorkout()" [formGroup]="workoutForm">
@@ -192,11 +205,13 @@
             *ngIf="!isExerciseInWexercies(exercise.name)"
           >
             <p>{{ exercise.name }}</p>
-            <img width="20" height="20" 
-            src="https://img.icons8.com/ios/50/add--v1.png" 
-            alt="add--v1"
-            class="add"
-            (click)="addToWExercie(exercise.name)"
+            <img
+              width="20"
+              height="20"
+              src="https://img.icons8.com/ios/50/add--v1.png"
+              alt="add--v1"
+              class="add"
+              (click)="addToWExercie(exercise.name)"
             />
           </div>
         </div>
@@ -219,7 +234,10 @@
         <!-- Add table body content here if needed -->
       </table>
 
-      <div class="mb-3 input-group-custom exercise-bar-container" *ngIf="exercises.length > 0">
+      <div
+        class="mb-3 input-group-custom exercise-bar-container"
+        *ngIf="exercises.length > 0"
+      >
         <div *ngFor="let exercise of workoutPlanExercise" class="exercise-bar">
           <p>{{ exercise.exerciseName }}</p>
           <input
@@ -231,26 +249,29 @@
           />
           <input
             type="number"
-              id="sets"
+            id="sets"
             class="number"
             (change)="handleChange($event, exercise.exerciseName, 'sets')"
             [value]="exercise.sets"
           />
-          <img width="20" height="20" 
-          src="https://img.icons8.com/ios/50/minus.png" 
-          alt="minus"
-          class="minus"
-          (click)="removeExercise(exercise.exerciseName)"
+          <img
+            width="20"
+            height="20"
+            src="https://img.icons8.com/ios/50/minus.png"
+            alt="minus"
+            class="minus"
+            (click)="removeExercise(exercise.exerciseName)"
           />
         </div>
       </div>
     </div>
 
-    <button type="submit"
-     [disabled]="workoutForm.invalid"
+    <button
+      type="submit"
+      [disabled]="workoutForm.invalid"
       color="accent"
       class="btn"
-      >
+    >
       Submit
     </button>
   </form>

@@ -51,19 +51,7 @@ export class SignInComponent {
           window.location.reload();
         });
         
-          // Load user data
-          // this.authService.authenticate().subscribe({
-          //   next: (userData: User) => {
-          //     // Store user data in local storage
-          //     localStorage.setItem("currentUser", JSON.stringify(userData));
- 
-          //     // Redirect to home page
-          //     this.router.navigate(["/"]);
-          //   },
-          //   error: (error) => {
-          //     this.externalErrorMsg = "Internal error please try again later";
-          //   },
-          // });
+    
         },
         error: (error) => {
           console.log(error, error.status);

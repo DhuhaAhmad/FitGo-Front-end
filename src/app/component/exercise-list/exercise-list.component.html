@@ -11,14 +11,11 @@
 <div class="card-container"*ngFor="let exercise of exercises | paginate: { itemsPerPage: itemsPerPage, currentPage: p}">
   <div class="card" (click)="getSelectedExercise(exercise)">
   <div class="img-content">
-    <!-- <img src={{exercise.image}} alt=""> -->
     <p class="heading">{{ exercise.name }}</p>
 
   </div>
   <div class="content" >
-    <!-- <p class="heading">{{ exercise.name }}</p> -->
     <p>
-     <!-- {{exercise.description}} -->
     {{exercise.muscleGroup}}
      {{exercise.category}}
     </p>

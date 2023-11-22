@@ -3,16 +3,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.component.html',
-  styleUrls: ['./timer.component.scss']
+  styleUrls: ['./timer.component.scss'],
 })
-export class TimerComponent implements OnInit{
-  
-  remainingTime: number = 60000
+export class TimerComponent implements OnInit {
+  remainingTime: number = 60000;
 
   @Output() timerOver: EventEmitter<void> = new EventEmitter<void>();
 
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     // Set the initial time (in milliseconds)
@@ -34,7 +32,7 @@ export class TimerComponent implements OnInit{
       if (this.remainingTime <= 0) {
         // Do something when the time is up
         console.log('Time is up!');
-        this.timerOver.emit()
+        this.timerOver.emit();
       }
     }, timerInterval);
   }
