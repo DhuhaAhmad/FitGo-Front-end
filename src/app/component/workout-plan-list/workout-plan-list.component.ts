@@ -195,12 +195,26 @@ export class WorkoutPlanListComponent implements OnInit {
     console.log(this.workoutPlanExercise);
 
     // Retrieve the updated values from the form
-    const updatedWorkout: Workout = {
+  //   const updatedWorkout: any = {
+  //     "name": "Lower Body Strength 6",
+  //     "duration": 6,
+  //     "exercises": [
+  //         {
+  //             "exerciseName": "Lunges",
+  //             "repetitions": 15,
+  //             "sets": 4,
+  //             "muscleGroup": "Quadriceps",
+  //             "image": "https://www.inspireusafoundation.org/wp-content/uploads/2023/07/bodyweight-forward-lunge.gif"
+  //         }
+  //     ]
+  // };
+    const updatedWorkout: any = {
       name: this.workoutForm.value.workoutPlan,
       duration: this.workoutForm.value.duration,
       exercises: this.workoutPlanExercise,
     };
 
+    console.log(updatedWorkout)
     // Update the workout plan
     this.workoutPlanService.putWorkout(updatedWorkout).subscribe({
       next: (res) => {

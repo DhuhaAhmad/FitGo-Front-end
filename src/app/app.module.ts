@@ -40,7 +40,7 @@ import { ToastrModule } from 'ngx-toastr';
     NgxPaginationModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot({
-      timeOut: 3000,
+      timeOut: 4000,
       positionClass: 'toast-top-right'
         }), // ToastrModule added
 
