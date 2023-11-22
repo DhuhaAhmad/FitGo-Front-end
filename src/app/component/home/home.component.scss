@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300');
+$white:#BFBFBF;
 @mixin fancyDecoration {
   position: relative;
   white-space: nowrap;
@@ -20,13 +22,14 @@
 .home {
   .banner {
     width: 100dvw;
-    height: 100dvh;
+    height: calc(100dvh - 75px) ;
     background-color: #3a385b;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #141e30;
     background: linear-gradient(to right, #1a171b, #3a385b, #262938);
+    position: relative;
 
     h1 {
       color: mix(#fff, #262938, 85%);
@@ -46,6 +49,67 @@
         @include fancyDecoration;
       }
     }
+
+
+    // SCROLL ICON
+ 
+
+.scroll-container{
+  position: absolute;
+  bottom: 50px;
+
+  .scrollIcon{
+    width:50px;
+    height:80px;
+    border:3px solid $white;
+    border-radius:30px;
+     display:flex;
+    justify-content:center;
+    position:relative;
+    &:after{
+      content:'Scroll Down';
+      color:$white;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-weight:300;
+      width:100px;
+      display: block;
+      position: absolute;
+      bottom: 0;
+      text-align:center;
+      animation: scrollText 2s infinite;
+    }
+  }
+  i.scroll{
+    background:$white;
+    width:6px;
+    height:14px;
+    display:block;
+    border-radius:40px;
+    //margin-top:15px;
+    animation: scrollWheel 2s infinite;
+  }
+  @keyframes scrollWheel{
+    0%{
+      opacity:1;
+      transform: translateY(40%);
+    }
+    100%{
+      opacity:.7;
+      transform: translateY(130%);
+    }
+  }
+  @keyframes scrollText{
+    0%{
+      opacity:1;
+      transform: translateY(120%);
+    }
+    100%{
+      opacity:.0;
+      transform: translateY(180%);
+    }
+  }
+}
+
   }
 }
 

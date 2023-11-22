@@ -40,26 +40,6 @@ export class PlayWorkoutComponent implements OnInit {
 
   scheduledWorkouts: Record<string, Exercise[]> = {};
 
-  //   {
-  //     // "username": "john",
-  //     "plan": "Core Strengthening",
-  //     "exerciseDTOS": [
-  //         {
-  //             "exerciseName": "Plank",
-  //             "repetitions": null,
-  //             "sets": 5,
-  //             "muscleGroup": "Abdominals",
-  //             "image": null
-  //         },
-  //         {
-  //             "exerciseName": "Deadlift",
-  //             "repetitions": null,
-  //             "sets": 8,
-  //             "muscleGroup": "Hamstrings",
-  //             "image": "https://www.inspireusafoundation.org/wp-content/uploads/2022/06/barbell-romanian-deadlift-movement.gif"
-  //         }
-  //     ]
-  // };
 
   neededArray: any[] = [];
 
