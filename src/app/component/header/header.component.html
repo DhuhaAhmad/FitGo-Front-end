@@ -26,6 +26,8 @@
             routerLink="/"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
+            (click)="setActiveTab('Home')"
+            [ngClass]="{active: activeTab === 'Home'}"
             >Home</a
           >
         </li>
@@ -35,6 +37,8 @@
             routerLink="/exercises"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
+            (click)="setActiveTab('Exercises')"
+            [ngClass]="{active: activeTab === 'Exercises'}"
             >Exercises</a
           >
         </li>
@@ -45,6 +49,8 @@
             routerLink="/workout-plans"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
+            (click)="setActiveTab('Workout Plans')"
+            [ngClass]="{active: activeTab === 'Workout Plans'}"
             >Workout Plans</a
           >
         </li>
@@ -78,6 +84,7 @@
           <ul class="dropdown-menu">
             <li>
               <a class="dropdown-item" [routerLink]="['/play-workout']"
+              (click)="setActiveTab('')"
                 >Start Working out</a
               >
             </li>

@@ -35,10 +35,11 @@
       >
         <div class="exercise-info">
           <h2>{{ currentExercise.exerciseName }}</h2>
-          <p>Repetitions: {{ currentExercise.repetitions }}</p>
           <p>
             <strong>Target Muscle:</strong> {{ currentExercise.muscleGroup }}
           </p>
+          <p>Repetitions: {{ currentExercise.repetitions }}</p>
+         
         </div>
         <img
           *ngIf="currentExercise.image"

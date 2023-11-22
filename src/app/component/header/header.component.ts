@@ -13,11 +13,17 @@ import { UserService } from 'src/app/service/user.service';
 export class HeaderComponent implements OnInit {
   username: string | null = null;
 
+  activeTab:string="Home"
+
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.username = localStorage.getItem('username');
     console.log(this.username);
+  }
+
+  setActiveTab(tab:string):void{
+    this.activeTab=tab
   }
 
   logout(): void {
