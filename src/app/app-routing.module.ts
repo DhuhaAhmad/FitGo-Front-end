@@ -8,6 +8,7 @@ import { WorkoutPlanListComponent } from './component/workout-plan-list/workout-
 import { SignInComponent } from './component/sign-in/sign-in.component';
 import { PlayWorkoutComponent } from './component/play-workout/play-workout.component';
 import { AuthGuardService } from './service/auth-guard-service.service';
+import { NotFoundComponent } from './component/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -32,7 +33,9 @@ const routes: Routes = [
     path: 'play-workout',
      canActivate: [AuthGuardService],
     component: PlayWorkoutComponent
-  }
+  },
+  { path: 'not-found', component: NotFoundComponent },
+  { path: '**', redirectTo: '/not-found' }
   
 
 ];
